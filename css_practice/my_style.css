@@ -1,0 +1,39 @@
+* {
+    font-family: 'Jua', sans-serif;
+}
+
+div {
+    /* 여기에 margin auto가 되어있기 때문에 자식 블록이 모두 가운데로 정렬된다. */
+    width: 380px;
+    margin: auto;
+    background-color: blue;
+}
+
+div>div:first-child {
+    width: 380px;
+    height: 280px;
+    background-image: url("https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg");
+    background-size: cover;
+    /* 배경 사진의 위아래 길이를 영역에 딱 맞게 사진을 채워줌 */
+    background-position-x: center;
+    border-radius: 10px;
+    color: aliceblue;
+    text-align: center;
+    /* line-height: 100px; */
+    /* transform: translate(0, 200%); */
+    /* vertical-align: middle; */
+    /* margin: 100px; */
+    /* padding-top: 40px;  */
+    /* 패딩 껴입는 것처럼 해당 영역의 윗부분에 덧대주는 듯? */
+    /* margin: auto; */
+}
+
+div>div:last-child {
+    /* width: 100px; */
+    background-color: brown;
+    /* text-align: center; */
+}
+
+h1.text {
+    padding-top: 20%;
+}
