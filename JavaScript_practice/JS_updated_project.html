@@ -12,13 +12,16 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery and Bootstrap Bundle (includes Popper) -->
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
         crossorigin="anonymous"></script>
-
+    
+    <!-- ajax 인식이 안 돼서 추가 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
     <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,10 +38,10 @@
             console.log('할루!')
         }
 
-        function openclose(){
+        function openclose() {
             console.log('포스팅 박스 열기/닫기 버튼 눌림')
             let status = $('#posting-box').css('display') // 포스팅 박스의 display 상태 받기
-            if (status == 'block'){ // 열려 있는 상태면 
+            if (status == 'block') { // 열려 있는 상태면 
                 $('#posting-box').hide()    //닫아라
                 $('#btn-posting-box').text('포스팅박스 열기')
             }
@@ -78,9 +81,9 @@
             padding: 40px;
             margin: 10px auto 15px auto;
         }
-        
+
         /* 포스팅박스를 기본 열려 있는 상태로 만들기 위함 */
-        #posting-box{
+        #posting-box {
             display: block;
         }
     </style>
