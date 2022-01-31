@@ -52,7 +52,7 @@
     </style>
     <script>
         $(document).ready(function () {
-            $("#cards-box").html("");
+            $("#cards-box").html(""); // 카드 박스 내용 리셋
             showArticles();
         });
 
@@ -71,14 +71,18 @@
             }
         }
 
+        // 포스팅박스를 통해 받은 데이터를 서버에 전달해줌
         function postArticle() {
             $.ajax({
                 type: "POST",
                 url: "/memo",
-                data: {'url':$('#post-url').val(), 'comment':$('#post-comment').val()},
-                success: function (response) { // 성공하면
+                data: { 'url': $('#post-url').val(), 'comment': $('#post-comment').val() }, // 넘겨줄 데이터
+                success: function (response) {
                     if (response["result"] == "success") {
-                        alert(response["msg"]);
+                        alert('POST 성공!');
+                        window.location.reload(); // 포스팅 성공 시 새로고침
+                    } else {
+                        alert('서버에서의 POST 처리 과정에 문제가 있는 것 같아용')
                     }
                 }
             })
@@ -91,14 +95,38 @@
                 data: {},
                 success: function (response) {
                     if (response["result"] == "success") {
-                        alert(response["msg"]);
+                        alert('GET에 성공했습니당');
+                        let articles = response['articles'];
+                        for (i = 0; i < articles.length; i++) {
+                            let article = articles[i]
+                            let url = article['url']
+                            let title = article['title']
+                            let desc = article['desc']
+                            let comment = article['comment']
+                            let image = article['image']
+
+                            makeCard(url, title, desc, comment, image)
+                        }
+
+                    } else {
+                        alert('GET에 실패했습니당');
                     }
                 }
             })
         }
 
         function makeCard(url, title, desc, comment, image) {
-
+            html_text = `<div class="card">
+                            <img class="card-img-top"
+                                src=${image}
+                                alt="Card image cap">
+                            <div class="card-body">
+                                <a href=${url} class="card-title">${title}</a>
+                                <p class="card-text">${desc}</p>
+                                <p class="card-text comment">${comment}</p>
+                            </div>
+                        </div>`;
+            $('#cards-box').append(html_text);
         }
     </script>
 

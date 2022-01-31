@@ -3,6 +3,7 @@ app = Flask(__name__)
 
 import requests
 from bs4 import BeautifulSoup
+headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
 
 from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
@@ -13,19 +14,33 @@ def home():
     return render_template('index.html')
 
 @app.route('/memo', methods=['GET'])
-def listing():
-    return jsonify({'result':'success', 'msg':'GET에 연결됨!'})
+def read_articles():
+    article_list = list(db.articles.find({}, {'_id':False}))
+    # print(article_list)
+    return jsonify({'result':'success', 'articles':article_list})
 
 # /memo로 POST request가 오면 아래와 같이 응답.
 @app.route('/memo', methods=['POST'])
-def saving():
+def post_articles():
     # url과 comment request 받아오기
     reqst_dic = request.form # dict 형태로 POST data 받아옴
     url = reqst_dic['url']
     comment = reqst_dic['comment']
+    
 
     # 데이터 url 가지고 data scrapping 하기
-    
+    data = requests.get(url, headers=headers)
+    soup = BeautifulSoup(data.text, 'html.parser')
+    # print('해치웠나?')
+
+    image = soup.select_one('meta[property="og:image"]')['content']
+    title = soup.select_one('meta[property="og:title"]')['content']
+    desc = soup.select_one('meta[property="og:description"]')['content']
+
+    article_json = {'url':url, 'title':title, 'desc':desc, 'image':image, 'comment':comment}
+
+    # articles라는 db에 document 넣기
+    db.articles.insert_one(article_json)
 
     return jsonify({'result':'success', 'msg':'POST에 연결됨!'})
 
