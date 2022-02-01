@@ -6,7 +6,8 @@ from bs4 import BeautifulSoup
 headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
 
 from pymongo import MongoClient
-client = MongoClient('localhost', 27017)
+# client = MongoClient('mongodb://yoonwoo:4565@3.36.71.134', 27017) # 서버 컴퓨터의 DB를 사용할 때
+client = MongoClient('localhost', 27017) # 로컬 컴퓨터의 DB를 사용할 때
 db = client.dbjungle
 
 @app.route('/')
@@ -27,7 +28,6 @@ def post_articles():
     url = reqst_dic['url']
     comment = reqst_dic['comment']
     
-
     # 데이터 url 가지고 data scrapping 하기
     data = requests.get(url, headers=headers)
     soup = BeautifulSoup(data.text, 'html.parser')
