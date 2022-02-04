@@ -2,7 +2,7 @@
     font-family: 'Jua', sans-serif;
 }
 
-div {
+.sh {
     /* 여기에 margin auto가 되어있기 때문에 자식 블록이 모두 가운데로 정렬된다. */
     width: 380px;
     margin: auto;
